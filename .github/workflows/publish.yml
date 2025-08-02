@@ -41,7 +41,9 @@ jobs:
         twine check dist/*
 
     - name: Publish to Test PyPI
-      if: github.event.inputs.environment == 'testpypi' || github.event_name == 'workflow_dispatch'
+      if: |
+        github.event.inputs.environment == 'testpypi' || 
+        (github.event_name == 'release' && github.event.release.prerelease == true)
       env:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.pypi_test }}
@@ -49,7 +51,9 @@ jobs:
         twine upload --repository testpypi dist/*
 
     - name: Publish to PyPI
-      if: github.event_name == 'release' && github.event.action == 'published'
+      if: |
+        github.event.inputs.environment == 'pypi' ||
+        (github.event_name == 'release' && github.event.action == 'published' && github.event.release.prerelease == false)
       env:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.pypi }}
