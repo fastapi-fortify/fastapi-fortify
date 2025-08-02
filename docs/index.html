@@ -1073,7 +1073,7 @@ app.add_middleware(SecurityMiddleware)  <span class="code-comment"># That's it! 
                     </p>
                 </div>
 
-                <button onclick="this.closest('div').remove()" 
+                <button id="close-demo-btn" 
                         style="background: #6b7280; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; margin-top: 20px; width: 100%; font-size: 1rem;">
                     Close Demo
                 </button>
@@ -1087,6 +1087,7 @@ app.add_middleware(SecurityMiddleware)  <span class="code-comment"># That's it! 
             // Add event listeners for copy buttons after modal is in DOM
             const copyJsonBtn = modal.querySelector('#copy-json-btn');
             const copyCurlBtn = modal.querySelector('#copy-curl-btn');
+            const closeDemoBtn = modal.querySelector('#close-demo-btn');
 
             copyJsonBtn.addEventListener('click', async () => {
                 await navigator.clipboard.writeText(JSON.stringify(data.response, null, 2));
@@ -1102,6 +1103,10 @@ app.add_middleware(SecurityMiddleware)  <span class="code-comment"># That's it! 
                 setTimeout(() => {
                     copyCurlBtn.textContent = '📋 Copy Curl';
                 }, 2000);
+            });
+
+            closeDemoBtn.addEventListener('click', () => {
+                modal.remove();
             });
 
             // Restore button
