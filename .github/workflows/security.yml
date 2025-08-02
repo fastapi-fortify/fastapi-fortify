@@ -1,0 +1,205 @@
+name: Security Scans
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # Run security scans daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  codeql:
+    name: CodeQL Analysis
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'python' ]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: ${{ matrix.language }}
+
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v2
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
+      with:
+        category: "/language:${{matrix.language}}"
+
+  bandit:
+    name: Bandit Security Scan
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+
+    - name: Install Bandit
+      run: |
+        python -m pip install --upgrade pip
+        pip install bandit[toml]
+
+    - name: Run Bandit scan
+      run: |
+        bandit -r fastapi_fortify -f json -o bandit-report.json
+      continue-on-error: true
+
+    - name: Upload Bandit results
+      uses: actions/upload-artifact@v3
+      with:
+        name: bandit-results
+        path: bandit-report.json
+
+  safety:
+    name: Safety Dependency Scan
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install safety
+        pip install -e .
+
+    - name: Run Safety check
+      run: |
+        safety check --json --output safety-report.json
+      continue-on-error: true
+
+    - name: Upload Safety results
+      uses: actions/upload-artifact@v3
+      with:
+        name: safety-results
+        path: safety-report.json
+
+  semgrep:
+    name: Semgrep Static Analysis
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Run Semgrep
+      uses: semgrep/semgrep-action@v1
+      with:
+        config: >-
+          p/security-audit
+          p/python
+          p/owasp-top-ten
+        generateSarif: "1"
+
+    - name: Upload SARIF file
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: semgrep.sarif
+      if: always()
+
+  dependency-review:
+    name: Dependency Review
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Dependency Review
+      uses: actions/dependency-review-action@v3
+      with:
+        fail-on-severity: moderate
+
+  osv-scanner:
+    name: OSV-Scanner Vulnerability Scan
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Run OSV-Scanner
+      uses: google/osv-scanner-action@v1.7.1
+      with:
+        scan-args: |-
+          -r
+          --skip-git
+          ./
+      continue-on-error: true
+
+  trivy:
+    name: Trivy Security Scan
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v2
+      if: always()
+      with:
+        sarif_file: 'trivy-results.sarif'
+
+  aggregate-results:
+    name: Aggregate Security Results
+    runs-on: ubuntu-latest
+    needs: [bandit, safety, semgrep, osv-scanner, trivy]
+    if: always()
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Download all artifacts
+      uses: actions/download-artifact@v3
+
+    - name: Create Security Report
+      run: |
+        mkdir -p security-reports
+        
+        echo "# Security Scan Results" > security-reports/summary.md
+        echo "Generated on: $(date)" >> security-reports/summary.md
+        echo "" >> security-reports/summary.md
+        
+        if [ -f bandit-results/bandit-report.json ]; then
+          echo "## Bandit Results" >> security-reports/summary.md
+          echo "Static security analysis for Python code." >> security-reports/summary.md
+          echo "" >> security-reports/summary.md
+        fi
+        
+        if [ -f safety-results/safety-report.json ]; then
+          echo "## Safety Results" >> security-reports/summary.md
+          echo "Dependency vulnerability scan." >> security-reports/summary.md
+          echo "" >> security-reports/summary.md
+        fi
+        
+        echo "All security scan artifacts have been generated and are available for review." >> security-reports/summary.md
+
+    - name: Upload consolidated security report
+      uses: actions/upload-artifact@v3
+      with:
+        name: security-report
+        path: security-reports/
