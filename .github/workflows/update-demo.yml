@@ -1,0 +1,77 @@
+name: Update Demo Reports
+
+on:
+  push:
+    branches: [ main ]
+    paths: 
+      - 'test_reports/**'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  update-demo-reports:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Required to push changes
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Check if test reports exist
+        run: |
+          if [ ! -d "test_reports" ]; then
+            echo "No test_reports directory found, skipping update"
+            exit 0
+          fi
+
+      - name: Copy test reports to docs folder
+        run: |
+          echo "Copying test reports to docs folder..."
+          rm -rf docs/coverage_report.html docs/load_test_report.html docs/performance_benchmark_report.html docs/pytest_results.json docs/security_test_report.html  # Remove old individual reports
+          cp test_reports/*.html docs/  # Copy HTML reports
+          cp test_reports/*.json docs/  # Copy JSON reports
+          
+      - name: Check for changes
+        id: verify-changed-files
+        run: |
+          if [ -n "$(git status --porcelain docs/*.html docs/*.json)" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit updated reports
+        if: steps.verify-changed-files.outputs.changed == 'true'
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add docs/*.html docs/*.json
+          git commit -m "🤖 Auto-update demo test reports
+          
+          Updated GitHub Pages demo with latest test reports
+          
+          - Coverage report
+          - Security test results  
+          - Performance benchmarks
+          - Load test results
+          
+          🤖 Generated with GitHub Actions"
+
+      - name: Push changes
+        if: steps.verify-changed-files.outputs.changed == 'true'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
+
+      - name: Summary
+        run: |
+          if [ "${{ steps.verify-changed-files.outputs.changed }}" == "true" ]; then
+            echo "✅ Demo reports updated successfully!"
+            echo "🌐 View updated demo at: https://fastapi-fortify.github.io/fastapi-fortify/"
+          else
+            echo "ℹ️ No changes detected in test reports"
+          fi
