@@ -1050,7 +1050,7 @@ app.add_middleware(SecurityMiddleware)  <span class="code-comment"># That's it! 
                         <span>📄</span> JSON Response
                     </h4>
                     <pre style="background: #2d3748; color: #e2e8f0; padding: 20px; border-radius: 8px; overflow-x: auto; font-size: 0.875rem; line-height: 1.5;">${JSON.stringify(data.response, null, 2)}</pre>
-                    <button onclick="navigator.clipboard.writeText(\`${JSON.stringify(data.response, null, 2).replace(/'/g, "\\'").replace(/`/g, "\\`")}\`); this.innerHTML='✅ Copied!'; setTimeout(() => this.innerHTML='📋 Copy JSON', 2000)" 
+                    <button id="copy-json-btn" 
                             style="background: #10b981; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; margin-top: 10px; font-size: 0.875rem;">
                         📋 Copy JSON
                     </button>
@@ -1061,7 +1061,7 @@ app.add_middleware(SecurityMiddleware)  <span class="code-comment"># That's it! 
                         <span>💻</span> Curl Command
                     </h4>
                     <pre style="background: #374151; color: #e2e8f0; padding: 20px; border-radius: 8px; overflow-x: auto; font-size: 0.875rem; line-height: 1.5; word-break: break-all;">${data.curl}</pre>
-                    <button onclick="navigator.clipboard.writeText(\`${data.curl.replace(/'/g, "\\'").replace(/`/g, "\\`")}\`); this.innerHTML='✅ Copied!'; setTimeout(() => this.innerHTML='📋 Copy Curl', 2000)" 
+                    <button id="copy-curl-btn" 
                             style="background: #3b82f6; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; margin-top: 10px; font-size: 0.875rem;">
                         📋 Copy Curl
                     </button>
@@ -1078,6 +1078,26 @@ app.add_middleware(SecurityMiddleware)  <span class="code-comment"># That's it! 
                     Close Demo
                 </button>
             `;
+
+            // Add event listeners for copy buttons
+            const copyJsonBtn = modal.querySelector('#copy-json-btn');
+            const copyCurlBtn = modal.querySelector('#copy-curl-btn');
+
+            copyJsonBtn.addEventListener('click', async () => {
+                await navigator.clipboard.writeText(JSON.stringify(data.response, null, 2));
+                copyJsonBtn.textContent = '✅ Copied!';
+                setTimeout(() => {
+                    copyJsonBtn.textContent = '📋 Copy JSON';
+                }, 2000);
+            });
+
+            copyCurlBtn.addEventListener('click', async () => {
+                await navigator.clipboard.writeText(data.curl);
+                copyCurlBtn.textContent = '✅ Copied!';
+                setTimeout(() => {
+                    copyCurlBtn.textContent = '📋 Copy Curl';
+                }, 2000);
+            });
 
             content.appendChild(header);
             content.appendChild(body);
