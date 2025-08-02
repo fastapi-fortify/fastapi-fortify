@@ -5,13 +5,13 @@ import pytest
 from unittest.mock import Mock, patch
 from datetime import datetime
 
-from fastapi_guard.protection.bot_detection import (
+from fastapi_fortify.protection.bot_detection import (
     BotDetector, 
     create_bot_detector,
     BotSignatures,
     RequestPattern
 )
-from fastapi_guard.utils.security_utils import SecurityDecision
+from fastapi_fortify.utils.security_utils import SecurityDecision
 
 
 class TestBotDetector:
@@ -165,7 +165,7 @@ class TestBotDetector:
         assert result.allowed is False
         assert result.rule_type == "bot_automation"
     
-    @patch('fastapi_guard.protection.bot_detection.user_agents.parse')
+    @patch('fastapi_fortify.protection.bot_detection.user_agents.parse')
     def test_advanced_user_agent_analysis(self, mock_parse):
         """Test advanced user agent analysis with user-agents library"""
         detector = BotDetector(mode="strict")

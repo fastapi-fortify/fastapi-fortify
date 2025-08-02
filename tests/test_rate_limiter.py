@@ -6,7 +6,7 @@ import asyncio
 import time
 from unittest.mock import Mock, AsyncMock, patch
 
-from fastapi_guard.middleware.rate_limiter import (
+from fastapi_fortify.middleware.rate_limiter import (
     MemoryRateLimiter,
     RedisRateLimiter,
     SlidingWindowRateLimiter,
@@ -290,7 +290,7 @@ class TestRedisRateLimiter:
         assert info.requests == 1
     
     @pytest.mark.asyncio
-    @patch('fastapi_guard.middleware.rate_limiter.redis')
+    @patch('fastapi_fortify.middleware.rate_limiter.redis')
     async def test_redis_rate_limiting_success(self, mock_redis_module):
         """Test successful Redis rate limiting"""
         # Mock Redis client
@@ -309,7 +309,7 @@ class TestRedisRateLimiter:
         assert info.requests == 6  # 5 + 1 (current request)
     
     @pytest.mark.asyncio
-    @patch('fastapi_guard.middleware.rate_limiter.redis')
+    @patch('fastapi_fortify.middleware.rate_limiter.redis')
     async def test_redis_rate_limit_exceeded(self, mock_redis_module):
         """Test Redis rate limit exceeded"""
         # Mock Redis client with limit exceeded
@@ -329,7 +329,7 @@ class TestRedisRateLimiter:
         mock_redis.zrem.assert_called_once()
     
     @pytest.mark.asyncio
-    @patch('fastapi_guard.middleware.rate_limiter.redis')
+    @patch('fastapi_fortify.middleware.rate_limiter.redis')
     async def test_redis_reset_rate_limit(self, mock_redis_module):
         """Test resetting rate limit in Redis"""
         mock_redis = AsyncMock()
@@ -346,7 +346,7 @@ class TestRedisRateLimiter:
     @pytest.mark.asyncio
     async def test_redis_import_error(self):
         """Test handling of missing Redis package"""
-        with patch('fastapi_guard.middleware.rate_limiter.redis', None):
+        with patch('fastapi_fortify.middleware.rate_limiter.redis', None):
             limiter = RedisRateLimiter()
             
             # Should raise ImportError when trying to connect

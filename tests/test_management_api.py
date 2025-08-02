@@ -7,8 +7,8 @@ from datetime import datetime
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
-from fastapi_guard.api.management import SecurityAPI, create_security_api
-from fastapi_guard.api.models import (
+from fastapi_fortify.api.management import SecurityAPI, create_security_api
+from fastapi_fortify.api.models import (
     SecurityStatus,
     RateLimitStatus,
     IPBlockStatus,
@@ -21,8 +21,8 @@ from fastapi_guard.api.models import (
     CustomPatternRequest,
     HealthCheckResponse
 )
-from fastapi_guard.middleware.security import SecurityMiddleware
-from fastapi_guard.config.settings import SecurityConfig
+from fastapi_fortify.middleware.security import SecurityMiddleware
+from fastapi_fortify.config.settings import SecurityConfig
 
 
 class TestSecurityAPI:

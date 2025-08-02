@@ -1,6 +1,6 @@
 """Authentication monitoring and security event processing for FastAPI Guard"""
 
-from fastapi_guard.monitoring.auth_monitor import (
+from fastapi_fortify.monitoring.auth_monitor import (
     AuthMonitor,
     AuthEvent,
     AuthEventType,

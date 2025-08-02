@@ -263,7 +263,7 @@ class BenchmarkRunner:
             "metadata": {
                 "timestamp": self.start_time.isoformat(),
                 "duration_seconds": (datetime.now() - self.start_time).total_seconds(),
-                "fastapi_guard_version": "0.1.0",
+                "fastapi_fortify_version": "0.1.0",
                 "python_version": sys.version,
                 "platform": sys.platform
             },

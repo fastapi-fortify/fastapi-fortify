@@ -18,9 +18,9 @@ import uvicorn
 import multiprocessing
 import requests
 
-from fastapi_guard.middleware.security import SecurityMiddleware
-from fastapi_guard.config.settings import SecurityConfig
-from fastapi_guard.config.presets import ProductionConfig, HighSecurityConfig
+from fastapi_fortify.middleware.security import SecurityMiddleware
+from fastapi_fortify.config.settings import SecurityConfig
+from fastapi_fortify.config.presets import ProductionConfig, HighSecurityConfig
 
 
 class LoadTestResult:

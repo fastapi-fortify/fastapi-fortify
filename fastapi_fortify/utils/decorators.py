@@ -7,7 +7,7 @@ import logging
 from functools import wraps
 from typing import Callable, Optional, Any
 from fastapi import HTTPException, Request, status
-from fastapi_guard.utils.security_utils import SecurityDecision
+from fastapi_fortify.utils.security_utils import SecurityDecision
 
 logger = logging.getLogger(__name__)
 

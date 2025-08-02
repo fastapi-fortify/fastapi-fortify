@@ -223,16 +223,16 @@ class SecurityMetrics:
             # Export counters
             for name, value in self.get_all_counters().items():
                 safe_name = name.replace("-", "_").replace(".", "_")
-                lines.append(f"fastapi_guard_{safe_name}_total {value}")
+                lines.append(f"fastapi_fortify_{safe_name}_total {value}")
             
             # Export recent metric summaries
             summaries = self.get_all_metrics_summary(hours=1)
             for name, summary in summaries["metrics"].items():
                 safe_name = name.replace("-", "_").replace(".", "_")
-                lines.append(f"fastapi_guard_{safe_name}_count {summary['count']}")
+                lines.append(f"fastapi_fortify_{safe_name}_count {summary['count']}")
                 if summary["count"] > 0:
-                    lines.append(f"fastapi_guard_{safe_name}_sum {summary['sum']}")
-                    lines.append(f"fastapi_guard_{safe_name}_avg {summary['avg']}")
+                    lines.append(f"fastapi_fortify_{safe_name}_sum {summary['sum']}")
+                    lines.append(f"fastapi_fortify_{safe_name}_avg {summary['avg']}")
             
             return "\n".join(lines)
         else:

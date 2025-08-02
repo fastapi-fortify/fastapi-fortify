@@ -14,7 +14,7 @@ import re
 
 import user_agents
 
-from fastapi_guard.utils.security_utils import SecurityDecision
+from fastapi_fortify.utils.security_utils import SecurityDecision
 
 logger = logging.getLogger(__name__)
 

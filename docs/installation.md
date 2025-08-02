@@ -44,8 +44,8 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 Verify your installation:
 
 ```python
-import fastapi_guard
-print(f"FastAPI Guard version: {fastapi_guard.__version__}")
+import fastapi_fortify
+print(f"FastAPI Guard version: {fastapi_fortify.__version__}")
 ```
 
 ## Optional Dependencies
@@ -80,7 +80,7 @@ pip install fastapi-guard[dev]
 
 ```python
 from fastapi import FastAPI
-from fastapi_guard import SecurityMiddleware
+from fastapi_fortify import SecurityMiddleware
 
 app = FastAPI()
 app.add_middleware(SecurityMiddleware)
@@ -94,7 +94,7 @@ async def root():
 
 ```python
 from fastapi import FastAPI
-from fastapi_guard import SecurityMiddleware, SecurityConfig
+from fastapi_fortify import SecurityMiddleware, SecurityConfig
 
 app = FastAPI()
 
@@ -112,8 +112,8 @@ app.add_middleware(SecurityMiddleware, config=config)
 
 ```python
 from fastapi import FastAPI
-from fastapi_guard import SecurityMiddleware
-from fastapi_guard.config.presets import ProductionConfig
+from fastapi_fortify import SecurityMiddleware
+from fastapi_fortify.config.presets import ProductionConfig
 
 app = FastAPI()
 

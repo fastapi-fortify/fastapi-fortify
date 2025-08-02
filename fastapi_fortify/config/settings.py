@@ -205,7 +205,7 @@ class SecurityConfig(BaseModel):
             env = os.getenv("ENVIRONMENT", "production").lower()
         
         # Import here to avoid circular imports
-        from fastapi_guard.config.presets import get_preset_config
+        from fastapi_fortify.config.presets import get_preset_config
         return get_preset_config(env)
 
 

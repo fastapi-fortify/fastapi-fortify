@@ -5,8 +5,8 @@ import pytest
 from unittest.mock import Mock, AsyncMock
 from fastapi import Request
 
-from fastapi_guard.protection.waf import WAFProtection, create_waf_protection
-from fastapi_guard.utils.security_utils import SecurityDecision
+from fastapi_fortify.protection.waf import WAFProtection, create_waf_protection
+from fastapi_fortify.utils.security_utils import SecurityDecision
 
 
 class TestWAFProtection:

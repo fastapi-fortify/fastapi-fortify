@@ -6,14 +6,14 @@ from unittest.mock import Mock, AsyncMock, patch
 from fastapi import FastAPI, Request, Response
 from fastapi.testclient import TestClient
 
-from fastapi_guard.middleware.security import (
+from fastapi_fortify.middleware.security import (
     SecurityMiddleware,
     create_security_middleware,
     SecurityEnvironment
 )
-from fastapi_guard.config.settings import SecurityConfig
-from fastapi_guard.config.presets import DevelopmentConfig, ProductionConfig, HighSecurityConfig
-from fastapi_guard.utils.security_utils import SecurityDecision
+from fastapi_fortify.config.settings import SecurityConfig
+from fastapi_fortify.config.presets import DevelopmentConfig, ProductionConfig, HighSecurityConfig
+from fastapi_fortify.utils.security_utils import SecurityDecision
 
 
 class TestSecurityMiddleware:

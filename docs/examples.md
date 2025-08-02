@@ -8,7 +8,7 @@ Real-world examples of FastAPI Guard implementations for different use cases and
 
 ```python
 from fastapi import FastAPI
-from fastapi_guard import SecurityMiddleware
+from fastapi_fortify import SecurityMiddleware
 
 app = FastAPI()
 
@@ -28,7 +28,7 @@ async def get_data():
 
 ```python
 from fastapi import FastAPI
-from fastapi_guard import SecurityMiddleware, SecurityConfig
+from fastapi_fortify import SecurityMiddleware, SecurityConfig
 
 app = FastAPI()
 
@@ -61,10 +61,10 @@ async def protected_data():
 
 ```python
 from fastapi import FastAPI, HTTPException, Depends
-from fastapi_guard import SecurityMiddleware, SecurityConfig
-from fastapi_guard.config.presets import ProductionConfig
-from fastapi_guard.utils.decorators import rate_limit, require_auth
-from fastapi_guard.monitoring.auth_monitor import create_auth_monitor
+from fastapi_fortify import SecurityMiddleware, SecurityConfig
+from fastapi_fortify.config.presets import ProductionConfig
+from fastapi_fortify.utils.decorators import rate_limit, require_auth
+from fastapi_fortify.monitoring.auth_monitor import create_auth_monitor
 
 app = FastAPI(title="E-commerce API")
 
@@ -172,9 +172,9 @@ async def admin_get_users(request: Request):
 
 ```python
 from fastapi import FastAPI, HTTPException, Request
-from fastapi_guard import SecurityMiddleware, SecurityConfig
-from fastapi_guard.config.presets import HighSecurityConfig
-from fastapi_guard.utils.decorators import (
+from fastapi_fortify import SecurityMiddleware, SecurityConfig
+from fastapi_fortify.config.presets import HighSecurityConfig
+from fastapi_fortify.utils.decorators import (
     require_auth, 
     rate_limit, 
     security_headers,
@@ -268,7 +268,7 @@ async def get_transactions(account_id: str, request: Request):
 ```python
 # Service A: User Service
 from fastapi import FastAPI
-from fastapi_guard import SecurityMiddleware, SecurityConfig
+from fastapi_fortify import SecurityMiddleware, SecurityConfig
 
 user_service = FastAPI(title="User Service")
 
@@ -340,8 +340,8 @@ async def create_order(order: dict):
 
 ```python
 from fastapi import FastAPI, Request, HTTPException
-from fastapi_guard import SecurityMiddleware, SecurityConfig
-from fastapi_guard.config.presets import ProductionConfig
+from fastapi_fortify import SecurityMiddleware, SecurityConfig
+from fastapi_fortify.config.presets import ProductionConfig
 import httpx
 
 app = FastAPI(title="API Gateway")
@@ -416,8 +416,8 @@ async def proxy_request(service_name: str, path: str, request: Request):
 
 ```python
 from fastapi import FastAPI, Request, Depends, HTTPException
-from fastapi_guard import SecurityMiddleware, SecurityConfig
-from fastapi_guard.utils.decorators import (
+from fastapi_fortify import SecurityMiddleware, SecurityConfig
+from fastapi_fortify.utils.decorators import (
     rate_limit, 
     require_auth, 
     block_bots,
@@ -504,8 +504,8 @@ async def admin_users(request: Request):
 
 ```python
 from fastapi import FastAPI, HTTPException, Request
-from fastapi_guard import SecurityMiddleware, SecurityConfig
-from fastapi_guard.utils.decorators import rate_limit, require_auth
+from fastapi_fortify import SecurityMiddleware, SecurityConfig
+from fastapi_fortify.utils.decorators import rate_limit, require_auth
 
 app = FastAPI(title="IoT Device Management")
 
@@ -580,8 +580,8 @@ async def get_device_status(device_id: str):
 
 ```python
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
-from fastapi_guard import SecurityMiddleware, SecurityConfig
-from fastapi_guard.utils.websocket import WebSocketSecurityManager
+from fastapi_fortify import SecurityMiddleware, SecurityConfig
+from fastapi_fortify.utils.websocket import WebSocketSecurityManager
 
 app = FastAPI(title="Real-time Chat")
 
@@ -671,7 +671,7 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
 ```python
 from fastapi import FastAPI, Depends, HTTPException
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from fastapi_guard import SecurityMiddleware, SecurityConfig
+from fastapi_fortify import SecurityMiddleware, SecurityConfig
 import jwt
 
 app = FastAPI()
@@ -709,8 +709,8 @@ async def protected_endpoint(user_id: str = Depends(get_current_user)):
 ```python
 from fastapi import FastAPI
 from sqlalchemy import create_engine
-from fastapi_guard import SecurityMiddleware, SecurityConfig
-from fastapi_guard.integrations.sqlalchemy import SQLAlchemySecurityStore
+from fastapi_fortify import SecurityMiddleware, SecurityConfig
+from fastapi_fortify.integrations.sqlalchemy import SQLAlchemySecurityStore
 
 app = FastAPI()
 

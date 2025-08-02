@@ -216,7 +216,7 @@ class RedisRateLimiter(RateLimiter):
     def __init__(
         self, 
         redis_url: str = "redis://localhost:6379",
-        key_prefix: str = "fastapi_guard:rate_limit:",
+        key_prefix: str = "fastapi_fortify:rate_limit:",
         connection_pool_size: int = 10
     ):
         """

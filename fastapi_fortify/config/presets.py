@@ -5,7 +5,7 @@ This module provides pre-configured security settings for different
 environments and use cases, making it easy to get started quickly.
 """
 from typing import Dict, Any
-from fastapi_guard.config.settings import SecurityConfig, SecurityEnvironment, LogLevel
+from fastapi_fortify.config.settings import SecurityConfig, SecurityEnvironment, LogLevel
 
 
 class DevelopmentConfig(SecurityConfig):

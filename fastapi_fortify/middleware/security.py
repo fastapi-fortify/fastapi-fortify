@@ -15,14 +15,14 @@ from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.types import ASGIApp
 
-from fastapi_guard.config.settings import SecurityConfig, create_default_config
-from fastapi_guard.protection.waf import WAFProtection
-from fastapi_guard.protection.bot_detection import BotDetector  
-from fastapi_guard.protection.ip_blocklist import IPBlocklistManager
-from fastapi_guard.middleware.rate_limiter import MemoryRateLimiter
-from fastapi_guard.monitoring.auth_monitor import AuthMonitor
-from fastapi_guard.utils.ip_utils import get_client_ip
-from fastapi_guard.utils.security_utils import SecurityDecision
+from fastapi_fortify.config.settings import SecurityConfig, create_default_config
+from fastapi_fortify.protection.waf import WAFProtection
+from fastapi_fortify.protection.bot_detection import BotDetector  
+from fastapi_fortify.protection.ip_blocklist import IPBlocklistManager
+from fastapi_fortify.middleware.rate_limiter import MemoryRateLimiter
+from fastapi_fortify.monitoring.auth_monitor import AuthMonitor
+from fastapi_fortify.utils.ip_utils import get_client_ip
+from fastapi_fortify.utils.security_utils import SecurityDecision
 
 logger = logging.getLogger(__name__)
 
@@ -41,13 +41,13 @@ class SecurityMiddleware(BaseHTTPMiddleware):
     
     Usage:
         from fastapi import FastAPI
-        from fastapi_guard import SecurityMiddleware
+        from fastapi_fortify import SecurityMiddleware
         
         app = FastAPI()
         app.add_middleware(SecurityMiddleware)  # Uses default config
         
         # Or with custom config:
-        from fastapi_guard import SecurityConfig
+        from fastapi_fortify import SecurityConfig
         config = SecurityConfig(enable_bot_detection=False)
         app.add_middleware(SecurityMiddleware, config=config)
     """
@@ -515,13 +515,13 @@ def create_security_middleware(
     
     Usage:
         from fastapi import FastAPI
-        from fastapi_guard import create_security_middleware
+        from fastapi_fortify import create_security_middleware
         
         app = FastAPI()
         SecurityMiddleware = create_security_middleware("production")
         app.add_middleware(SecurityMiddleware)
     """
-    from fastapi_guard.config.presets import get_preset_config
+    from fastapi_fortify.config.presets import get_preset_config
     
     config = get_preset_config(environment, **config_overrides)
     
@@ -536,19 +536,19 @@ def create_security_middleware(
 class DevelopmentSecurityMiddleware(SecurityMiddleware):
     """Security middleware pre-configured for development"""
     def __init__(self, app: ASGIApp):
-        from fastapi_guard.config.presets import DevelopmentConfig
+        from fastapi_fortify.config.presets import DevelopmentConfig
         super().__init__(app, config=DevelopmentConfig())
 
 
 class ProductionSecurityMiddleware(SecurityMiddleware):
     """Security middleware pre-configured for production"""
     def __init__(self, app: ASGIApp):
-        from fastapi_guard.config.presets import ProductionConfig
+        from fastapi_fortify.config.presets import ProductionConfig
         super().__init__(app, config=ProductionConfig())
 
 
 class HighSecurityMiddleware(SecurityMiddleware):
     """Security middleware pre-configured for high security environments"""
     def __init__(self, app: ASGIApp):
-        from fastapi_guard.config.presets import HighSecurityConfig
+        from fastapi_fortify.config.presets import HighSecurityConfig
         super().__init__(app, config=HighSecurityConfig())

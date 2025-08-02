@@ -15,17 +15,17 @@ from unittest.mock import Mock
 from fastapi import FastAPI, Request
 from fastapi.testclient import TestClient
 
-from fastapi_guard.middleware.security import SecurityMiddleware
-from fastapi_guard.config.settings import SecurityConfig
-from fastapi_guard.config.presets import ProductionConfig, HighSecurityConfig
-from fastapi_guard.protection.waf import WAFProtection
-from fastapi_guard.protection.bot_detection import BotDetector
-from fastapi_guard.middleware.rate_limiter import (
+from fastapi_fortify.middleware.security import SecurityMiddleware
+from fastapi_fortify.config.settings import SecurityConfig
+from fastapi_fortify.config.presets import ProductionConfig, HighSecurityConfig
+from fastapi_fortify.protection.waf import WAFProtection
+from fastapi_fortify.protection.bot_detection import BotDetector
+from fastapi_fortify.middleware.rate_limiter import (
     MemoryRateLimiter,
     RedisRateLimiter,
     SlidingWindowRateLimiter
 )
-from fastapi_guard.protection.ip_blocklist import IPBlocklist
+from fastapi_fortify.protection.ip_blocklist import IPBlocklist
 
 
 class PerformanceBenchmark:

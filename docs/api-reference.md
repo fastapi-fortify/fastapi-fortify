@@ -40,7 +40,7 @@ Reload threat intelligence feeds.
 **Example:**
 ```python
 from fastapi import FastAPI
-from fastapi_guard import SecurityMiddleware, SecurityConfig
+from fastapi_fortify import SecurityMiddleware, SecurityConfig
 
 app = FastAPI()
 config = SecurityConfig(waf_enabled=True)
@@ -135,7 +135,7 @@ Get statistics for pattern matches.
 
 **Example:**
 ```python
-from fastapi_guard.protection.waf import WAFProtection
+from fastapi_fortify.protection.waf import WAFProtection
 
 waf = WAFProtection(
     mode="strict",
@@ -183,7 +183,7 @@ Get bot detection statistics.
 
 **Example:**
 ```python
-from fastapi_guard.protection.bot_detection import BotDetector
+from fastapi_fortify.protection.bot_detection import BotDetector
 
 detector = BotDetector(
     mode="strict",
@@ -254,7 +254,7 @@ Reset rate limit for specific key.
 
 **Example:**
 ```python
-from fastapi_guard.middleware.rate_limiter import RedisRateLimiter
+from fastapi_fortify.middleware.rate_limiter import RedisRateLimiter
 
 limiter = RedisRateLimiter(redis_url="redis://localhost:6379/1")
 
@@ -302,7 +302,7 @@ Update threat intelligence feeds.
 
 **Example:**
 ```python
-from fastapi_guard.protection.ip_blocklist import IPBlocklist
+from fastapi_fortify.protection.ip_blocklist import IPBlocklist
 
 blocklist = IPBlocklist(
     whitelist=["192.168.1.0/24"],
@@ -348,7 +348,7 @@ Check if requests indicate brute force attack.
 
 **Example:**
 ```python
-from fastapi_guard.monitoring.auth_monitor import create_auth_monitor
+from fastapi_fortify.monitoring.auth_monitor import create_auth_monitor
 
 auth_monitor = create_auth_monitor(
     security_level="high",
@@ -408,7 +408,7 @@ Create security API instance.
 
 **Example:**
 ```python
-from fastapi_guard.api.management import create_security_api
+from fastapi_fortify.api.management import create_security_api
 
 security_api = create_security_api(
     middleware_instance=middleware,
@@ -426,7 +426,7 @@ app.include_router(security_api.router)
 ### IP Utilities
 
 ```python
-from fastapi_guard.utils.ip_utils import (
+from fastapi_fortify.utils.ip_utils import (
     get_client_ip,
     is_valid_ip,
     is_valid_cidr,
@@ -450,7 +450,7 @@ Check if IP is in CIDR network.
 ### Security Decision
 
 ```python
-from fastapi_guard.utils.security_utils import SecurityDecision
+from fastapi_fortify.utils.security_utils import SecurityDecision
 
 class SecurityDecision:
     allowed: bool
@@ -473,7 +473,7 @@ class SecurityDecision:
 ### Authentication Decorators
 
 ```python
-from fastapi_guard.utils.decorators import (
+from fastapi_fortify.utils.decorators import (
     require_auth,
     rate_limit,
     block_bots,
@@ -503,7 +503,7 @@ Validate request input.
 
 **Example:**
 ```python
-from fastapi_guard.utils.decorators import require_auth, rate_limit
+from fastapi_fortify.utils.decorators import require_auth, rate_limit
 
 @require_auth()
 @rate_limit(requests=10, window_seconds=60)
@@ -519,7 +519,7 @@ async def sensitive_endpoint(request: Request):
 ### Available Presets
 
 ```python
-from fastapi_guard.config.presets import (
+from fastapi_fortify.config.presets import (
     DevelopmentConfig,
     ProductionConfig,
     HighSecurityConfig
@@ -537,7 +537,7 @@ Maximum security for sensitive applications.
 
 **Example:**
 ```python
-from fastapi_guard.config.presets import ProductionConfig
+from fastapi_fortify.config.presets import ProductionConfig
 
 config = ProductionConfig()
 config.excluded_paths = ["/health", "/metrics"]
@@ -551,7 +551,7 @@ app.add_middleware(SecurityMiddleware, config=config)
 ### Request/Response Models
 
 ```python
-from fastapi_guard.api.models import (
+from fastapi_fortify.api.models import (
     SecurityStatus,
     HealthCheckResponse,
     ThreatSummary,
@@ -587,7 +587,7 @@ class ThreatSummary(BaseModel):
 ### Custom Exceptions
 
 ```python
-from fastapi_guard.exceptions import (
+from fastapi_fortify.exceptions import (
     SecurityError,
     WAFError,
     RateLimitError,
@@ -607,7 +607,7 @@ Rate limiting errors.
 
 **Example:**
 ```python
-from fastapi_guard.exceptions import SecurityError
+from fastapi_fortify.exceptions import SecurityError
 
 try:
     waf.analyze_request(request)

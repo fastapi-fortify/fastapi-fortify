@@ -16,7 +16,7 @@ FastAPI Guard implements multiple security layers:
 ### Security Components
 
 ```python
-from fastapi_guard import SecurityMiddleware, SecurityConfig
+from fastapi_fortify import SecurityMiddleware, SecurityConfig
 
 config = SecurityConfig(
     # Layer 1: Network security
@@ -147,7 +147,7 @@ config = SecurityConfig(
 
 ```python
 from fastapi import Request
-from fastapi_guard.utils.decorators import rate_limit
+from fastapi_fortify.utils.decorators import rate_limit
 
 @rate_limit(
     requests=1000,
@@ -257,7 +257,7 @@ config = SecurityConfig(
 ### Monitoring Failed Logins
 
 ```python
-from fastapi_guard.monitoring import create_auth_monitor
+from fastapi_fortify.monitoring import create_auth_monitor
 
 auth_monitor = create_auth_monitor(
     security_level="high",
@@ -298,7 +298,7 @@ async def login(request: LoginRequest):
 
 ```python
 # Enhanced password validation
-from fastapi_guard.utils.decorators import validate_input
+from fastapi_fortify.utils.decorators import validate_input
 
 @validate_input(
     password_min_length=12,
@@ -317,7 +317,7 @@ async def change_password(request: PasswordChangeRequest):
 ### Input Validation
 
 ```python
-from fastapi_guard.utils.decorators import validate_input
+from fastapi_fortify.utils.decorators import validate_input
 from pydantic import BaseModel, validator
 
 class APIRequest(BaseModel):
@@ -345,7 +345,7 @@ async def process_data(request: APIRequest):
 ### Output Security
 
 ```python
-from fastapi_guard.utils.decorators import security_headers
+from fastapi_fortify.utils.decorators import security_headers
 
 @security_headers(
     csp="default-src 'self'; script-src 'self' 'unsafe-inline'",
@@ -365,7 +365,7 @@ async def get_sensitive_data():
 ### Security Event Logging
 
 ```python
-from fastapi_guard.utils.decorators import log_security_event
+from fastapi_fortify.utils.decorators import log_security_event
 
 @log_security_event(
     event_type="api_access",
@@ -391,7 +391,7 @@ async def admin_delete_user(user_id: str):
 
 ```python
 # Set up real-time security monitoring
-from fastapi_guard.monitoring.real_time import SecurityMonitor
+from fastapi_fortify.monitoring.real_time import SecurityMonitor
 
 monitor = SecurityMonitor(
     thresholds={
@@ -492,7 +492,7 @@ config = SecurityConfig(
 ### Automated Response
 
 ```python
-from fastapi_guard.incident_response import IncidentHandler
+from fastapi_fortify.incident_response import IncidentHandler
 
 handler = IncidentHandler(
     severity_thresholds={
@@ -519,7 +519,7 @@ app.add_middleware(SecurityMiddleware,
 
 ```python
 # Security management API for investigations
-from fastapi_guard.api.management import create_security_api
+from fastapi_fortify.api.management import create_security_api
 
 security_api = create_security_api(
     middleware_instance=middleware,

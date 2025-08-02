@@ -9,10 +9,10 @@ from unittest.mock import Mock, patch
 from fastapi import FastAPI, Request
 from fastapi.testclient import TestClient
 
-from fastapi_guard.middleware.security import SecurityMiddleware
-from fastapi_guard.config.settings import SecurityConfig
-from fastapi_guard.config.presets import ProductionConfig, HighSecurityConfig
-from fastapi_guard.api.management import create_security_api
+from fastapi_fortify.middleware.security import SecurityMiddleware
+from fastapi_fortify.config.settings import SecurityConfig
+from fastapi_fortify.config.presets import ProductionConfig, HighSecurityConfig
+from fastapi_fortify.api.management import create_security_api
 
 
 class TestFullStackIntegration:

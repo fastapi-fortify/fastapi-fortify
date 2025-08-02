@@ -1,6 +1,6 @@
 """Configuration module for FastAPI Guard"""
 
-from fastapi_guard.config.settings import (
+from fastapi_fortify.config.settings import (
     SecurityConfig,
     SecurityEnvironment,
     LogLevel,

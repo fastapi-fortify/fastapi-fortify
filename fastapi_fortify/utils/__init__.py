@@ -1,6 +1,6 @@
 """Utility modules for FastAPI Guard"""
 
-from fastapi_guard.utils.ip_utils import (
+from fastapi_fortify.utils.ip_utils import (
     get_client_ip,
     is_valid_ip,
     is_valid_cidr,
@@ -10,7 +10,7 @@ from fastapi_guard.utils.ip_utils import (
     is_public_ip,
     normalize_ip_list
 )
-from fastapi_guard.utils.security_utils import SecurityDecision
+from fastapi_fortify.utils.security_utils import SecurityDecision
 
 __all__ = [
     "get_client_ip",

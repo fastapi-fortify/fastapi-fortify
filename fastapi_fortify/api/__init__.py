@@ -1,7 +1,7 @@
 """Management API for FastAPI Guard"""
 
-from fastapi_guard.api.management import SecurityAPI, create_security_api
-from fastapi_guard.api.models import (
+from fastapi_fortify.api.management import SecurityAPI, create_security_api
+from fastapi_fortify.api.models import (
     SecurityStatus,
     RateLimitStatus,
     IPBlockStatus,

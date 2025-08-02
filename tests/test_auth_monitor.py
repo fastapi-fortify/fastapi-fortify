@@ -6,7 +6,7 @@ import asyncio
 from datetime import datetime, timedelta
 from unittest.mock import Mock, AsyncMock, patch
 
-from fastapi_guard.monitoring.auth_monitor import (
+from fastapi_fortify.monitoring.auth_monitor import (
     AuthMonitor,
     AuthEvent,
     AuthEventType,

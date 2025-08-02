@@ -40,7 +40,7 @@ FastAPI Guard is designed for high-performance applications with minimal overhea
 #### Lightweight Configuration
 
 ```python
-from fastapi_guard import SecurityConfig
+from fastapi_fortify import SecurityConfig
 
 # Optimized for performance
 config = SecurityConfig(
@@ -166,7 +166,7 @@ config = SecurityConfig(
 ```python
 import time
 import re
-from fastapi_guard.protection.waf import WAFProtection
+from fastapi_fortify.protection.waf import WAFProtection
 
 def benchmark_waf_patterns():
     waf = WAFProtection()
@@ -227,7 +227,7 @@ config = SecurityConfig(
 ```python
 import asyncio
 import time
-from fastapi_guard.middleware.rate_limiter import (
+from fastapi_fortify.middleware.rate_limiter import (
     MemoryRateLimiter,
     RedisRateLimiter,
     SlidingWindowRateLimiter
@@ -287,7 +287,7 @@ config = SecurityConfig(
 #### Performance Metrics
 
 ```python
-from fastapi_guard.monitoring import PerformanceMonitor
+from fastapi_fortify.monitoring import PerformanceMonitor
 import time
 
 class PerformanceMiddleware:
@@ -465,7 +465,7 @@ def monitor_memory_usage():
 
 ```python
 import asyncio
-from fastapi_guard.utils.async_utils import AsyncProcessor
+from fastapi_fortify.utils.async_utils import AsyncProcessor
 
 config = SecurityConfig(
     # Enable async processing
@@ -558,16 +558,16 @@ import logging
 from prometheus_client import Counter, Histogram, Gauge
 
 # Metrics
-request_duration = Histogram('fastapi_guard_request_duration_seconds',
+request_duration = Histogram('fastapi_fortify_request_duration_seconds',
                             'Request processing time')
-requests_total = Counter('fastapi_guard_requests_total',
+requests_total = Counter('fastapi_fortify_requests_total',
                         'Total requests processed')
-memory_usage = Gauge('fastapi_guard_memory_usage_bytes',
+memory_usage = Gauge('fastapi_fortify_memory_usage_bytes',
                     'Memory usage in bytes')
 
 class ProductionMonitoring:
     def __init__(self):
-        self.logger = logging.getLogger("fastapi_guard.performance")
+        self.logger = logging.getLogger("fastapi_fortify.performance")
     
     def log_performance_metrics(self, metrics):
         # Update Prometheus metrics

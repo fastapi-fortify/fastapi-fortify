@@ -9,13 +9,13 @@ from fastapi.testclient import TestClient
 import tempfile
 import os
 
-from fastapi_guard.middleware.security import SecurityMiddleware
-from fastapi_guard.config.settings import SecurityConfig
-from fastapi_guard.protection.waf import WAFProtection
-from fastapi_guard.protection.bot_detection import BotDetector
-from fastapi_guard.protection.ip_blocklist import IPBlocklistManager
-from fastapi_guard.middleware.rate_limiter import MemoryRateLimiter
-from fastapi_guard.monitoring.auth_monitor import AuthMonitor, MemoryEventStore
+from fastapi_fortify.middleware.security import SecurityMiddleware
+from fastapi_fortify.config.settings import SecurityConfig
+from fastapi_fortify.protection.waf import WAFProtection
+from fastapi_fortify.protection.bot_detection import BotDetector
+from fastapi_fortify.protection.ip_blocklist import IPBlocklistManager
+from fastapi_fortify.middleware.rate_limiter import MemoryRateLimiter
+from fastapi_fortify.monitoring.auth_monitor import AuthMonitor, MemoryEventStore
 
 
 @pytest.fixture

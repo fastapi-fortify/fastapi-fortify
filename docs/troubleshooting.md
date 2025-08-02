@@ -99,7 +99,7 @@ Average response time increased from 50ms to 500ms
 **Diagnosis:**
 ```python
 import time
-from fastapi_guard.monitoring import PerformanceMonitor
+from fastapi_fortify.monitoring import PerformanceMonitor
 
 @app.middleware("http")
 async def timing_middleware(request, call_next):
@@ -281,7 +281,7 @@ config = SecurityConfig(
 
 # Check logs for blocked patterns
 import logging
-logging.getLogger("fastapi_guard.waf").setLevel(logging.DEBUG)
+logging.getLogger("fastapi_fortify.waf").setLevel(logging.DEBUG)
 ```
 
 **Solutions:**
@@ -325,7 +325,7 @@ SQL injection attempts passing through WAF
 **Diagnosis:**
 ```python
 # Test WAF patterns
-from fastapi_guard.protection.waf import WAFProtection
+from fastapi_fortify.protection.waf import WAFProtection
 
 waf = WAFProtection(mode="strict")
 
@@ -398,7 +398,7 @@ config = SecurityConfig(
 
 3. **User-Based Rate Limiting:**
 ```python
-from fastapi_guard.utils.decorators import rate_limit
+from fastapi_fortify.utils.decorators import rate_limit
 
 @rate_limit(
     requests=1000,
@@ -539,7 +539,7 @@ config = SecurityConfig(
 
 2. **Check Notification Setup:**
 ```python
-from fastapi_guard.monitoring.auth_monitor import create_auth_monitor
+from fastapi_fortify.monitoring.auth_monitor import create_auth_monitor
 
 auth_monitor = create_auth_monitor(
     security_level="high",
@@ -577,7 +577,7 @@ GET /security/status returns 404 Not Found
 
 1. **Ensure API is Added:**
 ```python
-from fastapi_guard.api.management import create_security_api
+from fastapi_fortify.api.management import create_security_api
 
 # Create and add security API
 security_api = create_security_api(
@@ -634,14 +634,14 @@ Security events not being logged despite debug_mode=True
 import logging
 
 # Configure FastAPI Guard logging
-logging.getLogger("fastapi_guard").setLevel(logging.DEBUG)
-logging.getLogger("fastapi_guard.waf").setLevel(logging.DEBUG)
-logging.getLogger("fastapi_guard.bot_detection").setLevel(logging.DEBUG)
+logging.getLogger("fastapi_fortify").setLevel(logging.DEBUG)
+logging.getLogger("fastapi_fortify.waf").setLevel(logging.DEBUG)
+logging.getLogger("fastapi_fortify.bot_detection").setLevel(logging.DEBUG)
 
 # Add console handler
 handler = logging.StreamHandler()
 handler.setLevel(logging.DEBUG)
-logging.getLogger("fastapi_guard").addHandler(handler)
+logging.getLogger("fastapi_fortify").addHandler(handler)
 ```
 
 2. **Enable Debug Mode:**
@@ -680,7 +680,7 @@ handler = logging.handlers.RotatingFileHandler(
     maxBytes=10*1024*1024,  # 10MB
     backupCount=5
 )
-logging.getLogger("fastapi_guard").addHandler(handler)
+logging.getLogger("fastapi_fortify").addHandler(handler)
 ```
 
 ## Getting Help
@@ -690,13 +690,13 @@ logging.getLogger("fastapi_guard").addHandler(handler)
 When reporting issues, include this diagnostic information:
 
 ```python
-import fastapi_guard
+import fastapi_fortify
 import sys
 import os
 
 def get_diagnostic_info():
     return {
-        "fastapi_guard_version": fastapi_guard.__version__,
+        "fastapi_fortify_version": fastapi_fortify.__version__,
         "python_version": sys.version,
         "platform": sys.platform,
         "environment_variables": {

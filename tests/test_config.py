@@ -7,8 +7,8 @@ import tempfile
 import json
 from typing import Dict, Any
 
-from fastapi_guard.config.settings import SecurityConfig
-from fastapi_guard.config.presets import (
+from fastapi_fortify.config.settings import SecurityConfig
+from fastapi_fortify.config.presets import (
     DevelopmentConfig,
     ProductionConfig,
     HighSecurityConfig,

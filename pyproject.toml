@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "fastapi-guard"
+name = "fastapi-fortify"
 version = "0.1.0"
 description = "Comprehensive security middleware for FastAPI applications - WAF, rate limiting, bot detection, and more"
 readme = "README.md"
@@ -74,18 +74,18 @@ all = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/your-username/fastapi-guard"
-Documentation = "https://github.com/your-username/fastapi-guard#readme"
-Repository = "https://github.com/your-username/fastapi-guard"
-Issues = "https://github.com/your-username/fastapi-guard/issues"
-Changelog = "https://github.com/your-username/fastapi-guard/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/fastapi-fortify/fastapi-fortify"
+Documentation = "https://github.com/fastapi-fortify/fastapi-fortify#readme"
+Repository = "https://github.com/fastapi-fortify/fastapi-fortify"
+Issues = "https://github.com/fastapi-fortify/fastapi-fortify/issues"
+Changelog = "https://github.com/fastapi-fortify/fastapi-fortify/blob/main/CHANGELOG.md"
 
 [tool.hatch.build.targets.wheel]
-packages = ["fastapi_guard"]
+packages = ["fastapi_fortify"]
 
 [tool.hatch.build.targets.sdist]
 include = [
-    "/fastapi_guard",
+    "/fastapi_fortify",
     "/tests",
     "/examples",
     "/docs",
@@ -116,7 +116,7 @@ extend-exclude = '''
 profile = "black"
 multi_line_output = 3
 line_length = 88
-known_first_party = ["fastapi_guard"]
+known_first_party = ["fastapi_fortify"]
 
 [tool.mypy]
 python_version = "3.8"
@@ -144,7 +144,7 @@ ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 minversion = "7.0"
-addopts = "-ra -q --cov=fastapi_guard --cov-report=term-missing --cov-report=html"
+addopts = "-ra -q --cov=fastapi_fortify --cov-report=term-missing --cov-report=html"
 testpaths = ["tests"]
 asyncio_mode = "auto"
 python_files = ["test_*.py", "*_test.py"]
@@ -152,7 +152,7 @@ python_classes = ["Test*"]
 python_functions = ["test_*"]
 
 [tool.coverage.run]
-source = ["fastapi_guard"]
+source = ["fastapi_fortify"]
 omit = [
     "tests/*",
     "examples/*",

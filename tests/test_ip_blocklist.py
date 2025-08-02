@@ -8,7 +8,7 @@ import os
 from datetime import datetime, timedelta
 from unittest.mock import Mock, AsyncMock, patch
 
-from fastapi_guard.protection.ip_blocklist import (
+from fastapi_fortify.protection.ip_blocklist import (
     IPBlocklistManager,
     BlocklistEntry,
     ThreatFeedConfig,

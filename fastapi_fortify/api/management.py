@@ -13,7 +13,7 @@ from fastapi import APIRouter, HTTPException, Depends, status, Query
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.responses import JSONResponse
 
-from fastapi_guard.api.models import (
+from fastapi_fortify.api.models import (
     SecurityStatus,
     RateLimitStatus,
     IPBlockStatus,

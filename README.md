@@ -1,16 +1,16 @@
-# FastAPI Guard 🛡️
+# FastAPI Fortify 🛡️
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.68+-green.svg)](https://fastapi.tiangolo.com/)
-[![Test Coverage](https://img.shields.io/badge/coverage-96.4%25-brightgreen.svg)](https://github.com/fastapi-guard/fastapi-guard)
-[![Tests](https://img.shields.io/badge/tests-127%20passed-brightgreen.svg)](https://github.com/fastapi-guard/fastapi-guard)
-[![Performance](https://img.shields.io/badge/latency-42.3ms-green.svg)](https://github.com/fastapi-guard/fastapi-guard)
-[![Load Test](https://img.shields.io/badge/load-1247%20RPS-green.svg)](https://github.com/fastapi-guard/fastapi-guard)
+[![Test Coverage](https://img.shields.io/badge/coverage-96.4%25-brightgreen.svg)](https://github.com/fastapi-fortify/fastapi-fortify)
+[![Tests](https://img.shields.io/badge/tests-127%20passed-brightgreen.svg)](https://github.com/fastapi-fortify/fastapi-fortify)
+[![Performance](https://img.shields.io/badge/latency-42.3ms-green.svg)](https://github.com/fastapi-fortify/fastapi-fortify)
+[![Load Test](https://img.shields.io/badge/load-1247%20RPS-green.svg)](https://github.com/fastapi-fortify/fastapi-fortify)
 
 **Enterprise-grade security middleware for FastAPI applications with zero configuration required.**
 
-FastAPI Guard provides comprehensive, production-ready security features that protect your FastAPI applications from common web threats including SQL injection, XSS, bot attacks, brute force attempts, and more.
+FastAPI Fortify provides comprehensive, production-ready security features that protect your FastAPI applications from common web threats including SQL injection, XSS, bot attacks, brute force attempts, and more.
 
 ## 📊 **Proven Performance & Reliability**
 
@@ -31,14 +31,14 @@ FastAPI Guard provides comprehensive, production-ready security features that pr
 ### Installation
 
 ```bash
-pip install fastapi-guard
+pip install fastapi-fortify
 ```
 
 ### Basic Usage
 
 ```python
 from fastapi import FastAPI
-from fastapi_guard import SecurityMiddleware
+from fastapi_fortify import SecurityMiddleware
 
 app = FastAPI()
 app.add_middleware(SecurityMiddleware)  # That's it! 🎉
@@ -75,7 +75,7 @@ async def hello():
 Choose from pre-configured security levels:
 
 ```python
-from fastapi_guard import SecurityMiddleware
+from fastapi_fortify import SecurityMiddleware
 from fastapi_guard.config.presets import ProductionConfig, HighSecurityConfig
 
 # Production configuration
@@ -88,7 +88,7 @@ app.add_middleware(SecurityMiddleware, config=HighSecurityConfig())
 ### Custom Configuration
 
 ```python
-from fastapi_guard import SecurityMiddleware, SecurityConfig
+from fastapi_fortify import SecurityMiddleware, SecurityConfig
 
 config = SecurityConfig(
     # WAF Settings
@@ -123,7 +123,7 @@ app.add_middleware(SecurityMiddleware, config=config)
 Monitor and manage security in real-time:
 
 ```python
-from fastapi_guard import SecurityMiddleware, create_security_api
+from fastapi_fortify import SecurityMiddleware, create_security_api
 
 # Add security middleware
 middleware = SecurityMiddleware(app, config=config)
@@ -186,12 +186,12 @@ await auth_monitor.process_login_attempt(
 
 ## 🚀 **Performance Benchmarks**
 
-FastAPI Guard is designed for high-performance, production applications with minimal overhead:
+FastAPI Fortify is designed for high-performance, production applications with minimal overhead:
 
 ### **Latency Impact**
 ```
-Without FastAPI Guard:  38.2ms average response time
-With FastAPI Guard:     42.3ms average response time
+Without FastAPI Fortify:  38.2ms average response time
+With FastAPI Fortify:     42.3ms average response time
 Additional Overhead:    4.1ms (10.7% increase)
 Target:                <50ms ✅ EXCEEDED
 ```
@@ -251,7 +251,7 @@ auth_monitor.add_notifier(slack_notifier)
 
 ## 🧪 **Comprehensive Testing Suite**
 
-FastAPI Guard maintains enterprise-grade quality through extensive testing:
+FastAPI Fortify maintains enterprise-grade quality through extensive testing:
 
 ### **Test Coverage Analysis**
 ```

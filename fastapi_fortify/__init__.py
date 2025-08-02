@@ -15,7 +15,7 @@ Battle-tested with millions of requests in production environments.
 
 Quick Start:
     from fastapi import FastAPI
-    from fastapi_guard import SecurityMiddleware
+    from fastapi_fortify import SecurityMiddleware
     
     app = FastAPI()
     app.add_middleware(SecurityMiddleware)  # That's it!
@@ -28,33 +28,33 @@ __license__ = "Dual Licensed: MIT (Open Source) / Commercial (Enterprise)"
 __url__ = "https://github.com/your-username/fastapi-guard"
 
 # Core exports for simple usage
-from fastapi_guard.middleware.security import SecurityMiddleware
-from fastapi_guard.config.settings import SecurityConfig
+from fastapi_fortify.middleware.security import SecurityMiddleware
+from fastapi_fortify.config.settings import SecurityConfig
 
 # Convenience imports for common use cases
-# from fastapi_guard.middleware.security import (
+# from fastapi_fortify.middleware.security import (
 #     create_security_middleware,
 #     SecurityEnvironment
 # )
 
 # Configuration presets
-from fastapi_guard.config.presets import (
+from fastapi_fortify.config.presets import (
     DevelopmentConfig,
     ProductionConfig, 
     HighSecurityConfig
 )
 
 # Management and monitoring
-from fastapi_guard.api.management import SecurityAPI, create_security_api
-from fastapi_guard.monitoring.metrics import SecurityMetrics
-from fastapi_guard.monitoring import (
+from fastapi_fortify.api.management import SecurityAPI, create_security_api
+from fastapi_fortify.monitoring.metrics import SecurityMetrics
+from fastapi_fortify.monitoring import (
     AuthMonitor,
     create_auth_monitor,
     WebhookProcessor
 )
 
 # Utilities
-from fastapi_guard.utils.decorators import (
+from fastapi_fortify.utils.decorators import (
     require_auth,
     rate_limit,
     block_bots

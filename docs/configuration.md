@@ -10,7 +10,7 @@ Zero configuration setup:
 
 ```python
 from fastapi import FastAPI
-from fastapi_guard import SecurityMiddleware
+from fastapi_fortify import SecurityMiddleware
 
 app = FastAPI()
 app.add_middleware(SecurityMiddleware)  # Uses defaults
@@ -19,7 +19,7 @@ app.add_middleware(SecurityMiddleware)  # Uses defaults
 ### 2. Custom Configuration
 
 ```python
-from fastapi_guard import SecurityMiddleware, SecurityConfig
+from fastapi_fortify import SecurityMiddleware, SecurityConfig
 
 config = SecurityConfig(
     waf_enabled=True,
@@ -35,7 +35,7 @@ app.add_middleware(SecurityMiddleware, config=config)
 ### 3. Environment Presets
 
 ```python
-from fastapi_guard.config.presets import (
+from fastapi_fortify.config.presets import (
     DevelopmentConfig,
     ProductionConfig,
     HighSecurityConfig
@@ -121,7 +121,7 @@ app.add_middleware(SecurityMiddleware, config=config)
 ### Development Configuration
 
 ```python
-from fastapi_guard.config.presets import DevelopmentConfig
+from fastapi_fortify.config.presets import DevelopmentConfig
 
 config = DevelopmentConfig()
 # Features:
@@ -134,7 +134,7 @@ config = DevelopmentConfig()
 ### Production Configuration
 
 ```python
-from fastapi_guard.config.presets import ProductionConfig
+from fastapi_fortify.config.presets import ProductionConfig
 
 config = ProductionConfig()
 # Features:
@@ -147,7 +147,7 @@ config = ProductionConfig()
 ### High Security Configuration
 
 ```python
-from fastapi_guard.config.presets import HighSecurityConfig
+from fastapi_fortify.config.presets import HighSecurityConfig
 
 config = HighSecurityConfig()
 # Features:
@@ -187,7 +187,7 @@ FASTAPI_GUARD_WEBHOOK_URL=https://hooks.slack.com/...
 Load from environment:
 
 ```python
-from fastapi_guard import SecurityConfig
+from fastapi_fortify import SecurityConfig
 
 config = SecurityConfig.from_env()
 app.add_middleware(SecurityMiddleware, config=config)
@@ -279,8 +279,8 @@ config = SecurityConfig(
 ### Validate Configuration
 
 ```python
-from fastapi_guard import SecurityConfig
-from fastapi_guard.config.validation import validate_config
+from fastapi_fortify import SecurityConfig
+from fastapi_fortify.config.validation import validate_config
 
 config = SecurityConfig(
     rate_limit_requests=1000,

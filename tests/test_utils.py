@@ -5,7 +5,7 @@ import pytest
 from unittest.mock import Mock, AsyncMock
 from fastapi import Request, Response, HTTPException
 
-from fastapi_guard.utils.ip_utils import (
+from fastapi_fortify.utils.ip_utils import (
     get_client_ip,
     is_valid_ip,
     is_valid_cidr,
@@ -15,8 +15,8 @@ from fastapi_guard.utils.ip_utils import (
     is_public_ip,
     normalize_ip_list
 )
-from fastapi_guard.utils.security_utils import SecurityDecision
-from fastapi_guard.utils.decorators import (
+from fastapi_fortify.utils.security_utils import SecurityDecision
+from fastapi_fortify.utils.decorators import (
     require_auth,
     rate_limit,
     block_bots,
@@ -294,7 +294,7 @@ class TestDecorators:
     @pytest.mark.asyncio
     async def test_rate_limit_decorator(self):
         """Test rate limit decorator"""
-        from fastapi_guard.middleware.rate_limiter import MemoryRateLimiter
+        from fastapi_fortify.middleware.rate_limiter import MemoryRateLimiter
         
         limiter = MemoryRateLimiter()
         
@@ -418,7 +418,7 @@ class TestDecoratorIntegration:
     @pytest.mark.asyncio
     async def test_multiple_decorators(self):
         """Test combining multiple decorators"""
-        from fastapi_guard.middleware.rate_limiter import MemoryRateLimiter
+        from fastapi_fortify.middleware.rate_limiter import MemoryRateLimiter
         
         limiter = MemoryRateLimiter()
         
@@ -460,7 +460,7 @@ class TestDecoratorIntegration:
     @pytest.mark.asyncio
     async def test_custom_key_functions(self):
         """Test decorators with custom key functions"""
-        from fastapi_guard.middleware.rate_limiter import MemoryRateLimiter
+        from fastapi_fortify.middleware.rate_limiter import MemoryRateLimiter
         
         limiter = MemoryRateLimiter()
         
