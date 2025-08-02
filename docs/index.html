@@ -1079,7 +1079,12 @@ app.add_middleware(SecurityMiddleware)  <span class="code-comment"># That's it! 
                 </button>
             `;
 
-            // Add event listeners for copy buttons
+            content.appendChild(header);
+            content.appendChild(body);
+            modal.appendChild(content);
+            document.body.appendChild(modal);
+
+            // Add event listeners for copy buttons after modal is in DOM
             const copyJsonBtn = modal.querySelector('#copy-json-btn');
             const copyCurlBtn = modal.querySelector('#copy-curl-btn');
 
@@ -1098,11 +1103,6 @@ app.add_middleware(SecurityMiddleware)  <span class="code-comment"># That's it! 
                     copyCurlBtn.textContent = '📋 Copy Curl';
                 }, 2000);
             });
-
-            content.appendChild(header);
-            content.appendChild(body);
-            modal.appendChild(content);
-            document.body.appendChild(modal);
 
             // Restore button
             button.innerHTML = originalText;
