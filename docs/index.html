@@ -796,6 +796,28 @@ app.add_middleware(SecurityMiddleware)  <span class="code-comment"># That's it! 
                     <p class="api-description">Runtime configuration management and security policy updates</p>
                 </div>
             </div>
+
+            <div style="margin-top: 50px; text-align: center;">
+                <h3 style="color: var(--dark-color); margin-bottom: 20px;">🎮 Interactive API Demo</h3>
+                <p style="color: var(--medium-gray); margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                    Click the buttons below to see live API responses with realistic data. Each demo includes the actual JSON response and curl command you can copy.
+                </p>
+                
+                <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 20px;">
+                    <button class="demo-button" onclick="simulateAPICall('health')">🔍 Health Check</button>
+                    <button class="demo-button" onclick="simulateAPICall('status')">📊 Security Status</button>
+                    <button class="demo-button" onclick="simulateAPICall('metrics')">📈 Performance Metrics</button>
+                    <button class="demo-button" onclick="simulateAPICall('threats')">⚠️ Threat Summary</button>
+                    <button class="demo-button" onclick="simulateAPICall('block-ip')">🚫 Block IP Address</button>
+                </div>
+
+                <div style="background: var(--light-gray); padding: 20px; border-radius: 12px; margin-top: 30px;">
+                    <h4 style="color: var(--dark-color); margin-bottom: 15px;">💡 Try It Yourself</h4>
+                    <p style="color: var(--medium-gray); font-size: 0.9rem;">
+                        These are interactive demos with realistic responses. In a real implementation, you'd authenticate with an API key and receive live data from your FastAPI Fortify instance.
+                    </p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -867,5 +889,210 @@ app.add_middleware(SecurityMiddleware)  <span class="code-comment"># That's it! 
             </p>
         </div>
     </footer>
+
+    <script>
+        async function simulateAPICall(endpoint) {
+            // Show loading state
+            const button = event.target;
+            const originalText = button.innerHTML;
+            button.innerHTML = '⏳ Loading...';
+            button.disabled = true;
+
+            // Simulate API delay
+            await new Promise(resolve => setTimeout(resolve, 800));
+
+            // Mock API responses with realistic data
+            const responses = {
+                health: {
+                    response: {
+                        status: "healthy",
+                        uptime: "2h 34m 15s",
+                        version: "1.2.0",
+                        middleware_active: true,
+                        last_restart: "2025-08-01T14:30:00Z",
+                        memory_usage: "156MB",
+                        cpu_usage: "23%"
+                    },
+                    curl: 'curl -H "X-API-Key: your-secret-key" https://your-api.com/security/health'
+                },
+                status: {
+                    response: {
+                        security_status: "active",
+                        threats_blocked_today: 342,
+                        requests_processed: 15847,
+                        blocked_ips: 23,
+                        active_rate_limits: 5,
+                        waf_rules_triggered: 89,
+                        bot_detection_active: true,
+                        last_threat_blocked: "2025-08-01T16:45:33Z"
+                    },
+                    curl: 'curl -H "X-API-Key: your-secret-key" https://your-api.com/security/status'
+                },
+                metrics: {
+                    response: {
+                        performance: {
+                            avg_response_time: "42.3ms",
+                            requests_per_second: 1247,
+                            memory_footprint: "156MB",
+                            cpu_utilization: "23%"
+                        },
+                        security: {
+                            sql_injection_blocked: 45,
+                            xss_attempts_blocked: 23,
+                            path_traversal_blocked: 12,
+                            bot_requests_blocked: 156,
+                            rate_limit_violations: 78
+                        },
+                        uptime: {
+                            current_uptime: "2h 34m 15s",
+                            uptime_percentage: 99.97,
+                            last_downtime: "2025-07-30T02:15:00Z"
+                        }
+                    },
+                    curl: 'curl -H "X-API-Key: your-secret-key" https://your-api.com/security/metrics'
+                },
+                threats: {
+                    response: {
+                        summary: {
+                            total_threats_blocked: 244,
+                            high_severity: 89,
+                            medium_severity: 134,
+                            low_severity: 21
+                        },
+                        attack_types: {
+                            sql_injection: 45,
+                            xss_attempts: 23,
+                            path_traversal: 12,
+                            command_injection: 8,
+                            bot_attacks: 156
+                        },
+                        top_blocked_ips: [
+                            { ip: "192.168.1.100", attempts: 45, country: "Unknown" },
+                            { ip: "10.0.0.50", attempts: 23, country: "Unknown" },
+                            { ip: "203.0.113.5", attempts: 18, country: "Unknown" }
+                        ],
+                        recent_threats: [
+                            { timestamp: "2025-08-01T16:45:33Z", type: "SQL Injection", ip: "192.168.1.100", blocked: true },
+                            { timestamp: "2025-08-01T16:43:21Z", type: "XSS Attempt", ip: "10.0.0.50", blocked: true },
+                            { timestamp: "2025-08-01T16:41:15Z", type: "Bot Attack", ip: "203.0.113.5", blocked: true }
+                        ]
+                    },
+                    curl: 'curl -H "X-API-Key: your-secret-key" https://your-api.com/security/threats/summary'
+                },
+                'block-ip': {
+                    response: {
+                        success: true,
+                        message: "IP address successfully added to blocklist",
+                        ip_address: "192.168.1.100",
+                        expiration: "2025-08-08T16:50:00Z",
+                        reason: "Repeated SQL injection attempts",
+                        total_blocked_ips: 24
+                    },
+                    curl: 'curl -X POST -H "X-API-Key: your-secret-key" -H "Content-Type: application/json" -d \'{"ip": "192.168.1.100", "reason": "Repeated attacks", "expires_hours": 168}\' https://your-api.com/security/ip-blocklist/block'
+                }
+            };
+
+            const data = responses[endpoint];
+
+            // Create modal
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.8);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+                backdrop-filter: blur(5px);
+            `;
+
+            const content = document.createElement('div');
+            content.style.cssText = `
+                background: white;
+                padding: 0;
+                border-radius: 15px;
+                max-width: 700px;
+                width: 90%;
+                max-height: 80%;
+                overflow: hidden;
+                box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            `;
+
+            const header = document.createElement('div');
+            header.style.cssText = `
+                background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+                color: white;
+                padding: 25px;
+                border-radius: 15px 15px 0 0;
+            `;
+
+            const body = document.createElement('div');
+            body.style.cssText = `
+                padding: 30px;
+                overflow-y: auto;
+                max-height: 500px;
+            `;
+
+            header.innerHTML = `
+                <h3 style="margin: 0; display: flex; align-items: center; gap: 10px;">
+                    <span>${endpoint === 'health' ? '🔍' : endpoint === 'status' ? '📊' : endpoint === 'metrics' ? '📈' : endpoint === 'threats' ? '⚠️' : '🚫'}</span>
+                    API Response: /security/${endpoint === 'block-ip' ? 'ip-blocklist/block' : endpoint}
+                </h3>
+            `;
+
+            body.innerHTML = `
+                <div style="margin-bottom: 25px;">
+                    <h4 style="color: #2c3e50; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
+                        <span>📄</span> JSON Response
+                    </h4>
+                    <pre style="background: #2d3748; color: #e2e8f0; padding: 20px; border-radius: 8px; overflow-x: auto; font-size: 0.875rem; line-height: 1.5;">${JSON.stringify(data.response, null, 2)}</pre>
+                    <button onclick="navigator.clipboard.writeText('${JSON.stringify(data.response, null, 2).replace(/'/g, "\\'")}'); this.innerHTML='✅ Copied!'; setTimeout(() => this.innerHTML='📋 Copy JSON', 2000)" 
+                            style="background: #10b981; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; margin-top: 10px; font-size: 0.875rem;">
+                        📋 Copy JSON
+                    </button>
+                </div>
+
+                <div style="margin-bottom: 25px;">
+                    <h4 style="color: #2c3e50; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
+                        <span>💻</span> Curl Command
+                    </h4>
+                    <pre style="background: #374151; color: #e2e8f0; padding: 20px; border-radius: 8px; overflow-x: auto; font-size: 0.875rem; line-height: 1.5; word-break: break-all;">${data.curl}</pre>
+                    <button onclick="navigator.clipboard.writeText('${data.curl.replace(/'/g, "\\'")}'); this.innerHTML='✅ Copied!'; setTimeout(() => this.innerHTML='📋 Copy Curl', 2000)" 
+                            style="background: #3b82f6; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; margin-top: 10px; font-size: 0.875rem;">
+                        📋 Copy Curl
+                    </button>
+                </div>
+
+                <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 15px;">
+                    <p style="color: #166534; margin: 0; font-size: 0.875rem;">
+                        <strong>💡 Note:</strong> This is a mock response for demonstration. In production, replace <code>your-secret-key</code> with your actual API key and <code>your-api.com</code> with your server URL.
+                    </p>
+                </div>
+
+                <button onclick="this.closest('div').remove()" 
+                        style="background: #6b7280; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; margin-top: 20px; width: 100%; font-size: 1rem;">
+                    Close Demo
+                </button>
+            `;
+
+            content.appendChild(header);
+            content.appendChild(body);
+            modal.appendChild(content);
+            document.body.appendChild(modal);
+
+            // Restore button
+            button.innerHTML = originalText;
+            button.disabled = false;
+
+            // Close on background click
+            modal.onclick = (e) => {
+                if (e.target === modal) modal.remove();
+            }
+        }
+    </script>
 </body>
 </html>
