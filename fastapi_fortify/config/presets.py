@@ -1,6 +1,5 @@
 """
 Configuration presets for common use cases
-
 This module provides pre-configured security settings for different
 environments and use cases, making it easy to get started quickly.
 """
@@ -18,7 +17,7 @@ class DevelopmentConfig(SecurityConfig):
             "enable_waf": True,
             "enable_rate_limiting": False,  # Disabled for easier development
             "enable_bot_detection": False,  # Disabled for easier development
-            "enable_ip_blocking": True,     # Enabled for testing
+            "enable_ip_blocking": True,      # Enabled for testing
             "enable_auth_monitoring": True,
             "log_level": LogLevel.DEBUG,
             "log_all_requests": True,
@@ -63,7 +62,7 @@ class ProductionConfig(SecurityConfig):
             "threat_intelligence_feeds": [
                 {
                     "name": "emerging_threats_compromised",
-                    "url": "https://rules.emergingthreats.net/fwrules/emerging-compromised.txt",
+                    "url": "https://rules.emergingthreats.net/blockrules/compromised-ips.txt",
                     "format": "text",
                     "update_interval": 3600
                 }
@@ -106,7 +105,7 @@ class HighSecurityConfig(SecurityConfig):
             "threat_intelligence_feeds": [
                 {
                     "name": "emerging_threats_compromised",
-                    "url": "https://rules.emergingthreats.net/fwrules/emerging-compromised.txt",
+                    "url": "https://rules.emergingthreats.net/blockrules/compromised-ips.txt",
                     "format": "text",
                     "update_interval": 1800  # Update every 30 minutes
                 },
